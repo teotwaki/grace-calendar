@@ -24,9 +24,9 @@ app.run(function($transform) {
 // in order to avoid unwanted routing.
 //
 app.config(function($routeProvider) {
-  $routeProvider.when('/',              {templateUrl: 'home.html', reloadOnSearch: false});
-  $routeProvider.when('/next-week',     {templateUrl: 'next-week.html', reloadOnSearch: false});
-  $routeProvider.when('/my-schedule',   {templateUrl: 'my-schedule.html', reloadOnSearch: false});
+  $routeProvider.when('/',              {templateUrl: 'pages/home.html', reloadOnSearch: false});
+  $routeProvider.when('/next-week',     {templateUrl: 'pages/next-week.html', reloadOnSearch: false});
+  $routeProvider.when('/my-schedule',   {templateUrl: 'pages/my-schedule.html', reloadOnSearch: false});
 });
 
 //
