@@ -8,12 +8,12 @@ module GraceApi
 
     before do
       # we almost always want a JSON output
-      content_type :json
+      content_type :json, 'charset' => 'utf-8'
     end
 
     get '/' do
       # in this case, it shouldn't be JSON
-      content_type :html
+      content_type :html, 'charset' => 'utf-8'
       send_file File.expand_path('../static/pages/index.html', settings.public_folder)
     end
   end
