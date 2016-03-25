@@ -4,6 +4,8 @@
 var app = angular.module('GraceKBHVolunteers', [
   'ngRoute',
   'mobile-angular-ui',
+  'GraceKBHControllers',
+  'GraceKBHServices'
 ]);
 
 //
@@ -15,21 +17,4 @@ app.config(function($routeProvider) {
   $routeProvider.when('/',              {templateUrl: 'pages/home.html', reloadOnSearch: false});
   $routeProvider.when('/next-week',     {templateUrl: 'pages/next-week.html', reloadOnSearch: false});
   $routeProvider.when('/my-schedule',   {templateUrl: 'pages/my-schedule.html', reloadOnSearch: false});
-});
-
-//
-// For this trivial app we have just a unique MainController for everything
-//
-app.controller('MainController', function($rootScope, $scope){
-  // Needed for the loading screen
-  $rootScope.$on('$routeChangeStart', function(){
-    $rootScope.loading = true;
-  });
-
-  $rootScope.$on('$routeChangeSuccess', function(){
-    $rootScope.loading = false;
-  });
-
-  // Fake text i used here and there.
-  $scope.lorem = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel explicabo, aliquid eaque soluta nihil eligendi adipisci error, illum corrupti nam fuga omnis quod quaerat mollitia expedita impedit dolores ipsam. Obcaecati.';
 });
