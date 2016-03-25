@@ -17,7 +17,7 @@ module GraceApi
       send_file File.expand_path('../static/pages/index.html', settings.public_folder)
     end
 
-    get '/coming-days.json' do
+    get '/api/coming-days.json' do
       get_days.collect do |day|
         {
           date: day,
