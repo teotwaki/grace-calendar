@@ -23,6 +23,3 @@ DEPENDENCIES
   shotgun (~> 0.9.1)
   sinatra (~> 1.4.7)
   sinatra-param (~> 1.4.0)
-
-BUNDLED WITH
-   1.10.6
