@@ -1,10 +1,11 @@
-function MainCtrl($scope, $rootScope) {
+function MainCtrl($scope, $rootScope, $route, $location) {
   // Needed for the loading screen
-  $rootScope.$on('$routeChangeStart', function(){
+  $rootScope.$on('$routeChangeStart', function(event, current, previous, rejection){
     $rootScope.loading = true;
+    $rootScope.duringLogin = $location.path() == '/login'
   });
 
-  $rootScope.$on('$routeChangeSuccess', function(){
+  $rootScope.$on('$routeChangeSuccess', function(event, current, previous, rejection){
     $rootScope.loading = false;
   });
 
