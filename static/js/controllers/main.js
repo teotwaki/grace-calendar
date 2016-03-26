@@ -1,11 +1,13 @@
-function MainCtrl($scope, $rootScope, $route, $location) {
-  // Needed for the loading screen
-  $rootScope.$on('$routeChangeStart', function(event, current, previous, rejection){
+function MainCtrl($scope, $rootScope, $location) {
+  $rootScope.$on('$routeChangeStart', function(){
+    // Needed for the loading screen
     $rootScope.loading = true;
-    $rootScope.duringLogin = $location.path() == '/login'
+    // Needed to hide the left-hand side menu during login
+    $rootScope.duringLogin = $location.path() == '/login';
   });
 
-  $rootScope.$on('$routeChangeSuccess', function(event, current, previous, rejection){
+  $rootScope.$on('$routeChangeSuccess', function() {
+    // Needed for the loading screen
     $rootScope.loading = false;
   });
 
