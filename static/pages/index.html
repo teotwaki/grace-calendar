@@ -40,7 +40,7 @@
 
     <!-- Sidebars -->
     <div ng-include="'pages/sidebar.html'"
-         ng-if="!duringLogin"
+         ng-hide="duringLogin"
          ui-track-as-search-param='true'
          class="sidebar sidebar-left"></div>
 
