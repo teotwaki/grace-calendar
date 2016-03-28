@@ -1,5 +1,6 @@
-angular.module('GraceKBHServices', ['ngResource'])
+angular
+  .module('GraceKBHServices', ['ngResource'])
 
-.factory('ComingDays', function($resource) {
-  return $resource('/api/coming-days.json');
-});
+  .factory('ComingDays', function($resource) {
+    return $resource('/api/coming-days.json');
+  });
