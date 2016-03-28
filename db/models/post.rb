@@ -9,6 +9,7 @@ class Post < Sequel::Model
 
   def to_json(options = nil)
     {
+      id: id,
       title: title,
       content: content,
       posted: posted.utc.iso8601,
