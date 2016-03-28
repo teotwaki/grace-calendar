@@ -1,8 +1,11 @@
 Bundler.require
 Dotenv.load
 
-# Load the DB helper
-require 'helpers/db'
+# Load all the helpers
+require_all 'helpers'
+
+# Load all the models
+require_all 'db/models'
 
 # Initialise GlobalPhone DB
 GlobalPhone.db_path = File.expand_path('../global_phone.json', __FILE__)
