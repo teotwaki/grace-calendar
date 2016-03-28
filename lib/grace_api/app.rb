@@ -63,7 +63,7 @@ module GraceApi
       send_file File.expand_path('../static/pages/index.html', settings.public_folder)
     end
 
-    get '/api/coming-days.json' do
+    get '/api/coming-days' do
       get_days.collect do |day|
         {
           date: day,
@@ -85,7 +85,7 @@ module GraceApi
       end.to_json
     end
 
-    get '/api/posts.json' do
+    get '/api/posts' do
       dataset = Post.reverse_order(:posted).paginate(@page, @per_page)
 
       {
