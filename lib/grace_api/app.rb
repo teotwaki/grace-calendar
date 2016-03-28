@@ -97,7 +97,7 @@ module GraceApi
 
       payload = {
         id: user.id,
-        isAdmin: false,
+        isAdmin: user.admin,
         approved: user.approved,
         phoneProvided: !user.phone_number.nil?
       }

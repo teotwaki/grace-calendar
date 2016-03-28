@@ -8,6 +8,7 @@ Sequel.migration do
       String :email, null: false, unique: true
       String :phone_number
       TrueClass :approved, default: false
+      TrueClass :admin, default: false
     end
 
     create_table(:oauth_users) do
