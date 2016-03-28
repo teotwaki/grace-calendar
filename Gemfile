@@ -17,6 +17,7 @@ gem 'httparty', '~> 0.13.7'
 gem 'sqlite3', '~> 1.3.11', require: false
 gem 'sequel', '~> 4.32.0'
 gem 'rake', '~> 10.4.2', require: false
+gem 'global_phone', '~> 1.0.1'
 
 group :development do
   gem 'shotgun', '~> 0.9.1', require: false
