@@ -85,11 +85,24 @@ module GraceApi
 
     post '/auth/google' do
       auth_data = parse_request
+
       response = google_client.get_access_token(auth_data)
-      halt 401, "Not authorized\n" if response.has_key? 'error'
-      access_token = response['access_token']
-      response = google_client.get_profile(access_token)
-      puts response
+      halt 500, "Not authorized\n" if response.has_key? 'error'
+
+      profile = google_client.get_profile(response['access_token'])
+      halt 500, "Not authorized\n" if profile.has_key? 'error'
+
+      oauth_user = OauthUser.from_google profile
+      user = oauth_user.user
+
+      payload = {
+        id: user.id,
+        isAdmin: false,
+        approved: user.approved,
+        phoneProvided: !user.phone_number.nil?
+      }
+
+      { token: WebToken.encode(payload) }.to_json
     end
 
     post '/auth/facebook' do

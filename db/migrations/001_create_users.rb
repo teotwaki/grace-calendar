@@ -6,12 +6,13 @@ Sequel.migration do
       String :first_name, null: false
       String :last_name, null: false
       String :email, null: false, unique: true
-      String :phone_number, null: false
+      String :phone_number
+      TrueClass :approved, default: false
     end
 
     create_table(:oauth_users) do
       String :provider, null: false
-      Integer :id, null: false
+      String :id, null: false
 
       foreign_key :user_id, :users
       primary_key [:provider, :id], name: :oauth_users_pk
