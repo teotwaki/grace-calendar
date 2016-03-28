@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="panel-body">
-           {{post.content}}
+          <p ng-repeat="line in (post.content | newlines) track by $index">{{line}}</p>
         </div>
       </div>
       <button class="btn btn-block btn-primary" ng-hide="lastPage" ng-click="loadMore()">Load more</button>

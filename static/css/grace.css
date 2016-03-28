@@ -68,4 +68,5 @@
 .post-author {
   color: #777;
   font-size: 80%;
+  display: inline-block;
 }
