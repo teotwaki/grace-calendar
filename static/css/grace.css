@@ -1,4 +1,4 @@
-.signup-or-separator {
+.separator-with-label {
   position: relative;
   height: 29px;
   margin: 5px 0;
@@ -6,23 +6,17 @@
   background: none;
 }
 
-.signup-or-separator hr {
+.separator-with-label hr {
   width: 90%;
   margin: -16px auto 10px auto;
   border-top: 1px solid #dce0e0;
 }
 
-.signup-or-separator .text {
+.separator-with-label .text {
   display: inline-block;
   padding: 8px;
   margin: 0;
   background-color: #fff;
-}
-
-.btn-instagram {
-  color: #fff;
-  background-color: #517fa4;
-  border: 1px solid #456c8c;
 }
 
 .btn-google {
@@ -69,4 +63,10 @@
 .fa-in-form {
   font-size: 1.2em;
   padding-top: 10px;
+}
+
+.post-author {
+  color: #777;
+  font-size: 80%;
+  display: inline-block;
 }

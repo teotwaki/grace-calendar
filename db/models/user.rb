@@ -9,7 +9,16 @@ class User < Sequel::Model
     errors.add(:phone_number, 'is not a valid phone number') unless phone_number.nil? || GlobalPhone.validate(phone_number, :dk)
   end
 
+  def to_json(options = nil)
+    {
+      id: id,
+      first_name: first_name,
+      last_name: last_name
+    }.to_json(options)
+  end
+
   one_to_many :oauth_users
+  one_to_many :posts
 
   class << self
     def from_google profile

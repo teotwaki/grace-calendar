@@ -46,4 +46,10 @@ angular
     $authProvider.google({
       clientId: '1055680974535-jfku1jmeokoahn5cflr1q55ekn7ou67t.apps.googleusercontent.com'
     });
+  })
+
+  .filter('newlines', function() {
+    return function(text) {
+      return text.split(/\n/g);
+    };
   });

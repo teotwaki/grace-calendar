@@ -53,6 +53,8 @@ module GraceApi
     before do
       # we almost always want a JSON output
       content_type :json, 'charset' => 'utf-8'
+      @page = params.fetch('page', 1).to_i
+      @per_page = params.fetch('per_page', 20).to_i
     end
 
     get '/' do
@@ -61,7 +63,7 @@ module GraceApi
       send_file File.expand_path('../static/pages/index.html', settings.public_folder)
     end
 
-    get '/api/coming-days.json' do
+    get '/api/coming-days' do
       get_days.collect do |day|
         {
           date: day,
@@ -81,6 +83,17 @@ module GraceApi
           ]
         }
       end.to_json
+    end
+
+    get '/api/posts' do
+      dataset = Post.reverse_order(:posted).paginate(@page, @per_page)
+
+      {
+        posts: dataset.all,
+        pagination: {
+          last_page: dataset.last_page?
+        }
+      }.to_json
     end
 
     post '/auth/google' do

@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'sinatra', '~> 1.4.7'
 gem 'sinatra-param', '~> 1.4.0', require: 'sinatra/param'
 gem 'require_all', '~> 1.3.3'
+gem 'will_paginate', '~> 3.1.0'
 
 # Parsing and stuff, listed to here to be automatically require'd
 gem 'json', '~> 1.8.3'
