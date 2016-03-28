@@ -5,7 +5,7 @@ Sequel.migration do
 
       String :first_name, null: false
       String :last_name, null: false
-      String :email, null: false
+      String :email, null: false, unique: true
       String :phone_number, null: false
     end
 
