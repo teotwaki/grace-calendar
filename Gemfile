@@ -12,6 +12,7 @@ gem 'dotenv', '~> 2.1.0'
 
 # Make HTTP requests to verify OAuth tokens
 gem 'httparty', '~> 0.13.7'
+gem 'jwt', '~> 1.5.4'
 
 # Database stuff
 gem 'sqlite3', '~> 1.3.11', require: false
