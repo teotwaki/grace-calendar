@@ -136,5 +136,35 @@ module GraceApi
       def google_client
         @google_client ||= GoogleAPIClient.new
       end
+
+      def authorize!
+        auth_header = request.env.fetch('HTTP_AUTHORIZATION', nil)
+        deny! 403, "Not authorized" if auth_header.nil?
+        bearer, token = auth_header.split(' ')
+        deny! 403, "Not authorized" if bearer != 'Bearer' or token.nil?
+        @token = WebToken.decode(token)[0]
+        deny! 403, "Not authorized" if @token.nil?
+      end
+
+      def require_admin!
+        authorize!
+        deny! 403, "Not authorized" if !@token['isAdmin']
+      end
+
+      def deny!(code, reason)
+        halt code, { error: reason }.to_json
+      end
+
+      def boolean_param(name)
+        if params.has_key? name
+          param = params[name]
+
+          if param == 'true'
+            true
+          elsif param == 'false'
+            false
+          end
+        end
+      end
   end
 end
