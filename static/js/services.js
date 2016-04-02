@@ -9,4 +9,10 @@ angular
     return $resource('/api/posts', {}, {
       'query': { method: 'GET', isArray: false }
     });
+  })
+
+  .factory('Users', function($resource) {
+    return $resource('/api/users', {}, {
+      'query': { method: 'GET', isArray: false }
+    });
   });

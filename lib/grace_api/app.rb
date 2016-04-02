@@ -96,14 +96,32 @@ module GraceApi
       }.to_json
     end
 
+    get '/api/users' do
+      require_admin!
+
+      approved = boolean_param 'approved'
+
+      filters = {}
+      filters[:approved] = approved unless approved.nil?
+
+      dataset = User.where(filters).reverse_order(:id).paginate(@page, @per_page)
+
+      {
+        users: dataset.all,
+        pagination: {
+          last_page: dataset.last_page?
+        }
+      }.to_json
+    end
+
     post '/auth/google' do
       auth_data = parse_request
 
       response = google_client.get_access_token(auth_data)
-      halt 500, "Not authorized\n" if response.has_key? 'error'
+      deny! 500, "Not authorized" if response.has_key? 'error'
 
       profile = google_client.get_profile(response['access_token'])
-      halt 500, "Not authorized\n" if profile.has_key? 'error'
+      deny! 500, "Not authorized" if profile.has_key? 'error'
 
       oauth_user = OauthUser.from_google profile
       user = oauth_user.user
