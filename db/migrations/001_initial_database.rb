@@ -18,5 +18,15 @@ Sequel.migration do
       foreign_key :user_id, :users
       primary_key [:provider, :id], name: :oauth_users_pk
     end
+
+    create_table(:posts) do
+      primary_key :id
+
+      String :title, null: false
+      String :content, null: false, text: true
+      DateTime :posted, null: false
+
+      foreign_key :user_id, :users
+    end
   end
 end
