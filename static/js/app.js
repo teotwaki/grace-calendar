@@ -4,7 +4,8 @@
 angular
   .module('GraceKBHVolunteers',
           ['ngRoute', 'mobile-angular-ui', 'GraceKBHServices', 'satellizer',
-           'Grace.MyScheduleCtrl', 'Grace.HomeCtrl', 'Grace.MainCtrl', 'Grace.ComingDaysCtrl', 'Grace.LoginCtrl'])
+           'Grace.MyScheduleCtrl', 'Grace.HomeCtrl', 'Grace.MainCtrl', 'Grace.ComingDaysCtrl', 'Grace.LoginCtrl',
+           'Grace.VolunteersCtrl'])
 
 //
 // You can configure ngRoute as always, but to take advantage of SharedState location
@@ -34,6 +35,12 @@ angular
       .when('/login', {
         templateUrl: 'pages/login.html',
         controller: 'LoginCtrl',
+        reloadOnSearch: false
+      })
+
+      .when('/volunteers', {
+        templateUrl: 'pages/volunteers.html',
+        controller: 'VolunteersCtrl',
         reloadOnSearch: false
       })
 

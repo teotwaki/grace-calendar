@@ -1,0 +1,35 @@
+<div ui-content-for="title">
+  <span>Manage volunteers</span>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-footer">
+    <div class="section">
+      <div class="btn-group justified nav-tabs">
+        <a
+           class="btn btn-default"
+           ng-class="{'active': filterNewVolunteers}"
+           ng-click="showFiltered()"
+           href>
+          New
+        </a>
+        <a
+           class="btn btn-default"
+           ng-class="{'active': !filterNewVolunteers}"
+           ng-click="showAll()"
+           href>
+          All
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="scrollable-content">
+    <div class="section">
+      <div class="list-group">
+        <a ng-repeat="volunteer in users" href="#" class="list-group-item">
+          {{volunteer.first_name}} {{volunteer.last_name}}<i class="fa fa-chevron-right pull-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
