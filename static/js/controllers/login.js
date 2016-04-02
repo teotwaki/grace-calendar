@@ -1,21 +1,17 @@
-function LoginCtrl($scope, $auth) {
+function LoginCtrl($scope, $auth, $location) {
   $scope.googleLogin = function() {
     $auth.authenticate('google')
       .then(function(response) {
-        console.log(response.data);
-      })
-      .catch(function(response) {
-        console.log(response.data);
+        $scope.loadMenuData();
+        $location.path('/#/');
       });
   }
 
   $scope.fbLogin = function() {
     $auth.authenticate('facebook')
       .then(function(response) {
-        console.log(response.data);
-      })
-      .catch(function(response) {
-        console.log(response.data);
+        $scope.loadMenuData();
+        $location.path('/#/');
       });
   }
 }
