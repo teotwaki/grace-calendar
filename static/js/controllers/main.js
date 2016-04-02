@@ -1,4 +1,4 @@
-function MainCtrl($scope, $rootScope, $location) {
+function MainCtrl($scope, $rootScope, $location, $auth) {
   $rootScope.$on('$routeChangeStart', function(){
     // Needed for the loading screen
     $rootScope.loading = true;
@@ -11,14 +11,18 @@ function MainCtrl($scope, $rootScope, $location) {
     $rootScope.loading = false;
   });
 
-  // Authentication stubs
-  $scope.isAuthenticated = function() {
-    return false;
+  $scope.loadMenuData = function() {
+    $scope.isAuthenticated = $auth.isAuthenticated();
+    $scope.isAdmin = $scope.isAuthenticated ? $auth.getPayload().isAdmin : false;
   };
 
-  $scope.isAdmin = function() {
-    return false;
-  };
+  $scope.loadMenuData();
+
+  $scope.logout = function() {
+    $auth.logout();
+    $scope.loadMenuData();
+    $location.path('/#/');
+  }
 
   // Fake text i used here and there.
   $scope.lorem = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel explicabo, aliquid eaque soluta nihil eligendi adipisci error, illum corrupti nam fuga omnis quod quaerat mollitia expedita impedit dolores ipsam. Obcaecati.';
