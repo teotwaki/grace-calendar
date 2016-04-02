@@ -4,11 +4,12 @@
 
 ## Setup
 
-To be filled out :).
+    bundle exec rake db:migrate
+    bundle exec rake db:seed
 
 # Running
 
-    shotgun -o 0.0.0.0
+    bundle exec shotgun -o 0.0.0.0
 
 # Contents of `.env`
 
