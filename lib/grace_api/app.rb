@@ -86,7 +86,7 @@ module GraceApi
     end
 
     get '/api/posts' do
-      dataset = Post.reverse_order(:posted).paginate(@page, @per_page)
+      dataset = Post.reverse_order(:created_at).paginate(@page, @per_page)
 
       {
         posts: dataset.all,
@@ -102,7 +102,7 @@ module GraceApi
       approved = boolean_param 'approved'
 
       filters = {}
-      filters[:approved] = approved unless approved.nil?
+      filters[:is_approved] = approved unless approved.nil?
 
       dataset = User.where(filters).reverse_order(:id).paginate(@page, @per_page)
 
@@ -129,8 +129,8 @@ module GraceApi
       u.first_name = data['first_name']
       u.last_name = data['last_name']
       u.phone_number = data['phone_number']
-      u.admin = data['is_admin']
-      u.approved = data['is_approved']
+      u.is_admin = data['is_admin']
+      u.is_approved = data['is_approved']
 
       u.save
 
@@ -151,9 +151,9 @@ module GraceApi
 
       payload = {
         id: user.id,
-        isAdmin: user.admin,
-        approved: user.approved,
-        phoneProvided: !user.phone_number.nil?
+        isAdmin: user.is_admin,
+        isApproved: user.is_approved,
+        hasValidPhoneNumber: !user.phone_number.nil?
       }
 
       { token: WebToken.encode(payload) }.to_json

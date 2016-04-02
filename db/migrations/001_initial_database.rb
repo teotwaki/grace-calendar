@@ -5,10 +5,11 @@ Sequel.migration do
 
       String :first_name, null: false
       String :last_name, null: false
-      String :email, null: false, unique: true
+      String :email_address, null: false, unique: true
       String :phone_number
-      TrueClass :approved, default: false
-      TrueClass :admin, default: false
+      TrueClass :is_approved, default: false
+      TrueClass :is_admin, default: false
+      DateTime :created_at, null: false, default: Sequel::SQL::Function.new(:datetime, 'now', 'localtime')
     end
 
     create_table(:oauth_users) do
@@ -24,7 +25,7 @@ Sequel.migration do
 
       String :title, null: false
       String :content, null: false, text: true
-      DateTime :posted, null: false
+      DateTime :created_at, null: false, default: Sequel::SQL::Function.new(:datetime, 'now', 'localtime')
 
       foreign_key :user_id, :users
     end

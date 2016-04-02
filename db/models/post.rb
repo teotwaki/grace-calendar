@@ -4,7 +4,7 @@ class Post < Sequel::Model
   def validate
     super
 
-    validates_presence [:title, :content, :posted]
+    validates_presence [:title, :content, :user]
   end
 
   def to_json(options = nil)
@@ -12,7 +12,7 @@ class Post < Sequel::Model
       id: id,
       title: title,
       content: content,
-      posted: posted.utc.iso8601,
+      created_at: created_at.utc.iso8601,
       author: user
     }.to_json(options)
   end
