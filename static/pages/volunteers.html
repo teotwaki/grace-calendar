@@ -26,7 +26,11 @@
   <div class="scrollable-content">
     <div class="section">
       <div class="list-group">
-        <a ng-repeat="volunteer in users" href="#" class="list-group-item">
+        <a
+           ng-repeat="volunteer in users track by $index"
+           class="list-group-item"
+           ng-click="setSelectedUser($index)"
+           href="#/edit-user">
           {{volunteer.first_name}} {{volunteer.last_name}}<i class="fa fa-chevron-right pull-right"></i>
         </a>
       </div>

@@ -15,4 +15,21 @@ angular
     return $resource('/api/users', {}, {
       'query': { method: 'GET', isArray: false }
     });
+  })
+
+  .factory('StoreUser', function() {
+    var savedData = {};
+
+    function set(data) {
+      savedData = data;
+    }
+
+    function get() {
+      return savedData;
+    }
+
+    return {
+      set: set,
+      get: get
+    };
   });

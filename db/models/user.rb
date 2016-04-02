@@ -13,7 +13,10 @@ class User < Sequel::Model
     {
       id: id,
       first_name: first_name,
-      last_name: last_name
+      last_name: last_name,
+      email_address: email,
+      is_approved: approved,
+      is_admin: admin
     }.to_json(options)
   end
 

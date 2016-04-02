@@ -1,4 +1,4 @@
-function VolunteersCtrl($scope, Users) {
+function VolunteersCtrl($scope, Users, StoreUser) {
   $scope.filterNewVolunteers = true;
 
   $scope.loadMore = function() {
@@ -36,6 +36,10 @@ function VolunteersCtrl($scope, Users) {
     if (!$scope.filterNewVolunteers) return;
     $scope.filterNewVolunteers = false;
     $scope.resetPagination();
+  };
+
+  $scope.setSelectedUser = function(userIndex) {
+    StoreUser.set($scope.users[userIndex]);
   };
 }
 
