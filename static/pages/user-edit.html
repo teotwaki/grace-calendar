@@ -1,0 +1,57 @@
+<div ui-content-for="title">
+  <span>Edit user</span>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <form role="form" ng-submit="editUser()">
+      <fieldset>
+        <legend>Personal details</legend>
+        <div class="form-group has-success has-feedback">
+          <label>First name</label>
+          <input type="text" ng-model="currentUser.first_name" class="form-control" ng-change="unlockSave()"/>
+        </div>
+        <div class="form-group has-success has-feedback">
+          <label>Last name</label>
+          <input type="text" ng-model="currentUser.last_name" class="form-control" ng-change="unlockSave()"/>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Contact information</legend>
+        <div class="form-group has-success has-feedback">
+          <label>Phone number</label>
+          <input type="text" ng-model="currentUser.phone_number" class="form-control" ng-change="unlockSave()"/>
+        </div>
+        <div class="form-group has-success has-feedback">
+          <label>Email address</label>
+          <input type="email" ng-model="currentUser.email_address" class="form-control" ng-change="unlockSave()"/>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Rights and authorisations</legend>
+        <div class="form-group">
+          <label>Approved</label>
+          <ui-switch ng-model="currentUser.is_approved" ng-change="unlockSave()"></ui-switch>
+        </div>
+        <div class="form-group">
+          <label>Administrator</label>
+          <ui-switch ng-model="currentUser.is_admin" ng-change="unlockSave()"></ui-switch>
+        </div>
+      </fieldset>
+
+      <hr/>
+
+      <a
+        class="btn btn-danger btn-block"
+        href="#/volunteers">
+        Cancel
+      </a>
+      <button
+        class="btn btn-primary btn-block"
+        ng-disabled="!saveUnlocked"
+        ng-click="saveUser()">
+        Save changes
+      </button>
+    </form>
+  </div>
+</div>

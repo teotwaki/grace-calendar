@@ -5,7 +5,11 @@ class WebToken
     end
 
     def decode(token)
-      JWT.decode token, ENV.fetch('JWT_HMAC_SECRET'), 'HS256'
+      begin
+        JWT.decode token, ENV.fetch('JWT_HMAC_SECRET'), 'HS256'
+      rescue
+        nil
+      end
     end
   end
 end

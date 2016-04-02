@@ -4,8 +4,8 @@ class User < Sequel::Model
   def validate
     super
 
-    validates_presence [:first_name, :last_name, :email]
-    validates_format /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i, :email, message: 'is not a valid address'
+    validates_presence [:first_name, :last_name, :email_address]
+    validates_format /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i, :email_address, message: 'is not a valid address'
     errors.add(:phone_number, 'is not a valid phone number') unless phone_number.nil? || GlobalPhone.validate(phone_number, :dk)
   end
 
@@ -13,7 +13,10 @@ class User < Sequel::Model
     {
       id: id,
       first_name: first_name,
-      last_name: last_name
+      last_name: last_name,
+      email_address: email_address,
+      is_approved: is_approved,
+      is_admin: is_admin
     }.to_json(options)
   end
 
@@ -22,13 +25,13 @@ class User < Sequel::Model
 
   class << self
     def from_google profile
-      user = User.where(email: profile['email']).first
+      user = User.where(email_address: profile['email']).first
 
       if user.nil?
         user = User.new
         user.first_name = profile['given_name']
         user.last_name = profile['family_name']
-        user.email = profile['email']
+        user.email_address = profile['email_address']
         user.save
       end
 

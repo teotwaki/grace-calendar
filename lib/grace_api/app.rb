@@ -86,7 +86,7 @@ module GraceApi
     end
 
     get '/api/posts' do
-      dataset = Post.reverse_order(:posted).paginate(@page, @per_page)
+      dataset = Post.reverse_order(:created_at).paginate(@page, @per_page)
 
       {
         posts: dataset.all,
@@ -96,23 +96,64 @@ module GraceApi
       }.to_json
     end
 
+    get '/api/users' do
+      require_admin!
+
+      approved = boolean_param 'approved'
+
+      filters = {}
+      filters[:is_approved] = approved unless approved.nil?
+
+      dataset = User.where(filters).reverse_order(:id).paginate(@page, @per_page)
+
+      {
+        users: dataset.all,
+        pagination: {
+          last_page: dataset.last_page?
+        }
+      }.to_json
+    end
+
+    get '/api/users/:id' do |id|
+      require_admin!
+
+      User.where(id: id).first.to_json
+    end
+
+    put '/api/users/:id' do |id|
+      require_admin!
+
+      data = parse_request
+      u = User.where(id: id).first
+
+      u.first_name = data['first_name']
+      u.last_name = data['last_name']
+      u.phone_number = data['phone_number']
+      u.is_admin = data['is_admin']
+      u.is_approved = data['is_approved']
+
+      u.save
+
+      {status: 'ok'}.to_json
+    end
+
     post '/auth/google' do
       auth_data = parse_request
 
       response = google_client.get_access_token(auth_data)
-      halt 500, "Not authorized\n" if response.has_key? 'error'
+      deny! 500, "Not authorized" if response.has_key? 'error'
 
       profile = google_client.get_profile(response['access_token'])
-      halt 500, "Not authorized\n" if profile.has_key? 'error'
+      deny! 500, "Not authorized" if profile.has_key? 'error'
 
       oauth_user = OauthUser.from_google profile
       user = oauth_user.user
 
       payload = {
         id: user.id,
-        isAdmin: user.admin,
-        approved: user.approved,
-        phoneProvided: !user.phone_number.nil?
+        isAdmin: user.is_admin,
+        isApproved: user.is_approved,
+        hasValidPhoneNumber: !user.phone_number.nil?
       }
 
       { token: WebToken.encode(payload) }.to_json
@@ -135,6 +176,37 @@ module GraceApi
 
       def google_client
         @google_client ||= GoogleAPIClient.new
+      end
+
+      def authorize!
+        auth_header = request.env.fetch('HTTP_AUTHORIZATION', nil)
+        deny! 403, "Not authorized" if auth_header.nil?
+        bearer, token = auth_header.split(' ')
+        deny! 403, "Not authorized" if bearer != 'Bearer' or token.nil?
+        @token = WebToken.decode(token)
+        deny! 403, "Not authorized" if @token.nil?
+        @token = @token[0]
+      end
+
+      def require_admin!
+        authorize!
+        deny! 403, "Not authorized" if !@token['isAdmin']
+      end
+
+      def deny!(code, reason)
+        halt code, { error: reason }.to_json
+      end
+
+      def boolean_param(name)
+        if params.has_key? name
+          param = params[name]
+
+          if param == 'true'
+            true
+          elsif param == 'false'
+            false
+          end
+        end
       end
   end
 end
