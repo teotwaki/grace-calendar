@@ -12,8 +12,9 @@ angular
   })
 
   .factory('Users', function($resource) {
-    return $resource('/api/users', {}, {
-      'query': { method: 'GET', isArray: false }
+    return $resource('/api/users/:id', {id: '@id'}, {
+      'query': { method: 'GET', isArray: false },
+      'update': { method: 'PUT' }
     });
   })
 

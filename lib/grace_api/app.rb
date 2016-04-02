@@ -114,6 +114,29 @@ module GraceApi
       }.to_json
     end
 
+    get '/api/users/:id' do |id|
+      require_admin!
+
+      User.where(id: id).first.to_json
+    end
+
+    put '/api/users/:id' do |id|
+      require_admin!
+
+      data = parse_request
+      u = User.where(id: id).first
+
+      u.first_name = data['first_name']
+      u.last_name = data['last_name']
+      u.phone_number = data['phone_number']
+      u.admin = data['is_admin']
+      u.approved = data['is_approved']
+
+      u.save
+
+      {status: 'ok'}.to_json
+    end
+
     post '/auth/google' do
       auth_data = parse_request
 
@@ -160,8 +183,9 @@ module GraceApi
         deny! 403, "Not authorized" if auth_header.nil?
         bearer, token = auth_header.split(' ')
         deny! 403, "Not authorized" if bearer != 'Bearer' or token.nil?
-        @token = WebToken.decode(token)[0]
+        @token = WebToken.decode(token)
         deny! 403, "Not authorized" if @token.nil?
+        @token = @token[0]
       end
 
       def require_admin!

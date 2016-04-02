@@ -46,13 +46,12 @@
         href="#/volunteers">
         Cancel
       </a>
-      <button class="btn btn-primary btn-block" ng-disabled="!saveUnlocked">
+      <button
+        class="btn btn-primary btn-block"
+        ng-disabled="!saveUnlocked"
+        ng-click="saveUser()">
         Save changes
       </button>
-
-      <div ui-content-for="navbarAction">
-        <a class='btn' ng-click='saveUser()'>Save changes</a>
-      </div>
     </form>
   </div>
 </div>
