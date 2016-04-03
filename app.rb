@@ -119,7 +119,7 @@ module GraceApi
         hasValidPhoneNumber: !user.phone_number.nil?
       }
 
-      { token: WebToken.encode(payload) }.to_json
+      { token: Helpers::WebToken.encode(payload) }.to_json
     end
 
     post '/auth/facebook' do
@@ -146,7 +146,7 @@ module GraceApi
         deny! 403, "Not authorized" if auth_header.nil?
         bearer, token = auth_header.split(' ')
         deny! 403, "Not authorized" if bearer != 'Bearer' or token.nil?
-        @token = WebToken.decode(token)
+        @token = Helpers::WebToken.decode(token)
         deny! 403, "Not authorized" if @token.nil?
         @token = @token[0]
       end
