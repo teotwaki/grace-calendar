@@ -53,8 +53,10 @@ module GraceApi
     before do
       # we almost always want a JSON output
       content_type :json, 'charset' => 'utf-8'
-      @page = params.fetch('page', 1).to_i
-      @per_page = params.fetch('per_page', 20).to_i
+
+      # Parse common params
+      param :page, Integer, default: 1
+      param :per_page, Integer, default: 20
     end
 
     get '/' do
@@ -86,7 +88,7 @@ module GraceApi
     end
 
     get '/api/posts' do
-      dataset = Post.reverse_order(:created_at).paginate(@page, @per_page)
+      dataset = Post.reverse_order(:created_at).paginate(params[:page], params[:per_page])
 
       {
         posts: dataset.all,
@@ -99,12 +101,12 @@ module GraceApi
     get '/api/users' do
       require_admin!
 
-      approved = boolean_param 'approved'
+      param :filter_unapproved, Boolean
 
       filters = {}
-      filters[:is_approved] = approved unless approved.nil?
+      filters[:is_approved] = false if params[:filter_unapproved]
 
-      dataset = User.where(filters).reverse_order(:id).paginate(@page, @per_page)
+      dataset = User.where(filters).reverse_order(:id).paginate(params[:page], params[:per_page])
 
       {
         users: dataset.all,
@@ -114,17 +116,21 @@ module GraceApi
       }.to_json
     end
 
-    get '/api/users/:id' do |id|
+    get '/api/users/:id' do
       require_admin!
 
-      User.where(id: id).first.to_json
+      param :id, Integer, required: true
+
+      User.where(id: params[:id]).first.to_json
     end
 
-    put '/api/users/:id' do |id|
+    put '/api/users/:id' do
       require_admin!
 
+      param :id, Integer, required: true
+
       data = parse_request
-      u = User.where(id: id).first
+      u = User.where(id: params[:id]).first
 
       u.first_name = data['first_name']
       u.last_name = data['last_name']
@@ -195,18 +201,6 @@ module GraceApi
 
       def deny!(code, reason)
         halt code, { error: reason }.to_json
-      end
-
-      def boolean_param(name)
-        if params.has_key? name
-          param = params[name]
-
-          if param == 'true'
-            true
-          elsif param == 'false'
-            false
-          end
-        end
       end
   end
 end
