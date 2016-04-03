@@ -1,6 +1,17 @@
 module GraceApi
   module Api
     class Common < Sinatra::Base
+      helpers Sinatra::Param
+
+      before do
+        # we almost always want a JSON output
+        content_type :json, 'charset' => 'utf-8'
+
+        # Parse common params
+        param :page, Integer, default: 1
+        param :per_page, Integer, default: 20
+      end
+
       private
       def parse_request
         request.body.rewind
