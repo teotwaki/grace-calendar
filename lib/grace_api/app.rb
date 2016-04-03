@@ -6,6 +6,8 @@ module GraceApi
     set :root, File.expand_path('../..', __FILE__)
     set :public_folder, 'static'
 
+    use Rack::Deflater
+
     before do
       # we almost always want a JSON output
       content_type :json, 'charset' => 'utf-8'
