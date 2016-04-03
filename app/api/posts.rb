@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module Api
     class Posts < Common
       get '/api/posts' do

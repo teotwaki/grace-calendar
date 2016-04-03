@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module Models
     class User < Sequel::Model
       plugin :validation_helpers

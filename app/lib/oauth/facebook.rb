@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module OAuth
     class FacebookAPIClient
     end

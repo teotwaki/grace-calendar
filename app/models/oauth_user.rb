@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module Models
     class OauthUser < Sequel::Model
       many_to_one :user

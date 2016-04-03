@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module Helpers
     class WebToken
       class << self

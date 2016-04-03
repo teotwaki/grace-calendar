@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module Api
     class ComingDays < Common
       get '/api/coming-days' do

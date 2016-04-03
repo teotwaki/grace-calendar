@@ -9,4 +9,4 @@ GlobalPhone.db_path = File.expand_path('../global_phone.json', __FILE__)
 
 # Load the main application
 require './app'
-run GraceApi::App
+run Grace::App

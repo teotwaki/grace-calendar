@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module Api
     class Auth < Common
       post '/auth/google' do

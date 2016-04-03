@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module Api
     class Common < Sinatra::Base
       helpers Sinatra::Param

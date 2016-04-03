@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   class App < Api::Common
     set :static, true
     set :public_folder, 'static'

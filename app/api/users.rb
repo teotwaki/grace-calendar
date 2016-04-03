@@ -1,4 +1,4 @@
-module GraceApi
+module Grace
   module Api
     class Users < Common
       get '/api/users' do
