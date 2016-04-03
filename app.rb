@@ -1,11 +1,12 @@
 module GraceApi
-  class App < Sinatra::Base
+  class App < Api::Common
     helpers Sinatra::Param
 
     set :static, true
     set :public_folder, 'static'
 
     use Rack::Deflater
+    use Api::Auth
 
     before do
       # we almost always want a JSON output
@@ -100,64 +101,10 @@ module GraceApi
       {status: 'ok'}.to_json
     end
 
-    post '/auth/google' do
-      auth_data = parse_request
-
-      response = google_client.get_access_token(auth_data)
-      deny! 500, "Not authorized" if response.has_key? 'error'
-
-      profile = google_client.get_profile(response['access_token'])
-      deny! 500, "Not authorized" if profile.has_key? 'error'
-
-      oauth_user = Models::OauthUser.from_google profile
-      user = oauth_user.user
-
-      payload = {
-        id: user.id,
-        isAdmin: user.is_admin,
-        isApproved: user.is_approved,
-        hasValidPhoneNumber: !user.phone_number.nil?
-      }
-
-      { token: Helpers::WebToken.encode(payload) }.to_json
-    end
-
-    post '/auth/facebook' do
-      auth_data = parse_request
-    end
-
     private
       def get_days
         day = Date.today
         (0..6).collect { |x| day + x }
-      end
-
-      def parse_request
-        request.body.rewind
-        JSON.parse request.body.read
-      end
-
-      def google_client
-        @google_client ||= OAuth::GoogleAPIClient.new
-      end
-
-      def authorize!
-        auth_header = request.env.fetch('HTTP_AUTHORIZATION', nil)
-        deny! 403, "Not authorized" if auth_header.nil?
-        bearer, token = auth_header.split(' ')
-        deny! 403, "Not authorized" if bearer != 'Bearer' or token.nil?
-        @token = Helpers::WebToken.decode(token)
-        deny! 403, "Not authorized" if @token.nil?
-        @token = @token[0]
-      end
-
-      def require_admin!
-        authorize!
-        deny! 403, "Not authorized" if !@token['isAdmin']
-      end
-
-      def deny!(code, reason)
-        halt code, { error: reason }.to_json
       end
   end
 end
