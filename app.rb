@@ -45,7 +45,7 @@ module GraceApi
     end
 
     get '/api/posts' do
-      dataset = Post.reverse_order(:created_at).paginate(params[:page], params[:per_page])
+      dataset = Models::Post.reverse_order(:created_at).paginate(params[:page], params[:per_page])
 
       {
         posts: dataset.all,
@@ -63,7 +63,7 @@ module GraceApi
       filters = {}
       filters[:is_approved] = false if params[:filter_unapproved]
 
-      dataset = User.where(filters).reverse_order(:id).paginate(params[:page], params[:per_page])
+      dataset = Models::User.where(filters).reverse_order(:id).paginate(params[:page], params[:per_page])
 
       {
         users: dataset.all,
@@ -78,7 +78,7 @@ module GraceApi
 
       param :id, Integer, required: true
 
-      User.where(id: params[:id]).first.to_json
+      Models::User.where(id: params[:id]).first.to_json
     end
 
     put '/api/users/:id' do
@@ -87,7 +87,7 @@ module GraceApi
       param :id, Integer, required: true
 
       data = parse_request
-      u = User.where(id: params[:id]).first
+      u = Models::User.where(id: params[:id]).first
 
       u.first_name = data['first_name']
       u.last_name = data['last_name']
@@ -109,7 +109,7 @@ module GraceApi
       profile = google_client.get_profile(response['access_token'])
       deny! 500, "Not authorized" if profile.has_key? 'error'
 
-      oauth_user = OauthUser.from_google profile
+      oauth_user = Models::OauthUser.from_google profile
       user = oauth_user.user
 
       payload = {
