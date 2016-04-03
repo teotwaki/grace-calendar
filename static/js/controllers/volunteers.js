@@ -6,7 +6,7 @@ function VolunteersCtrl($scope, Users, StoreUser) {
     var params = {page: $scope.page};
 
     if ($scope.filterNewVolunteers) {
-      params.approved = false;
+      params.filter_unapproved = true;
     }
 
     var users = Users.query(params, function() {
