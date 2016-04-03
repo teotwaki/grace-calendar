@@ -7,12 +7,12 @@ require_all 'helpers'
 # Load all the models
 require_all 'db/models'
 
+# Load the libraries
+require_all 'lib'
+
 # Initialise GlobalPhone DB
 GlobalPhone.db_path = File.expand_path('../global_phone.json', __FILE__)
 
-# Tell Sinatra where to find our API code
-$LOAD_PATH.push File.expand_path('../lib', __FILE__)
-require 'oauth'
-require 'grace_api'
-
+# Load the main application
+require './app'
 run GraceApi::App

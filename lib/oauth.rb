@@ -1,2 +1,1 @@
-require 'oauth/google'
-require 'oauth/facebook'
+require_rel 'oauth'
