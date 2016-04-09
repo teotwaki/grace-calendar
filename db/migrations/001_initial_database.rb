@@ -6,9 +6,9 @@ Sequel.migration do
       String :first_name, null: false
       String :last_name, null: false
       String :email_address, null: false, unique: true
-      String :phone_number
-      TrueClass :is_approved, default: false
-      TrueClass :is_admin, default: false
+      String :phone_number, null: true
+      TrueClass :is_approved, null: false, default: false
+      TrueClass :is_admin, null: false, default: false
       DateTime :created_at, null: false, default: Sequel::SQL::Function.new(:datetime, 'now', 'localtime')
     end
 
