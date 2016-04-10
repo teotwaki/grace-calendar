@@ -2,6 +2,7 @@ require 'factory_girl'
 require 'faker'
 require 'require_all'
 require 'rspec/collection_matchers'
+require 'as-duration'
 
 require_all 'app/helpers'
 require_all 'app/models'
