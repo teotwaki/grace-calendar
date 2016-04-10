@@ -1,4 +1,7 @@
 require 'models_helper'
+require 'as-duration'
+
+require_rel '../../app/models/shift'
 include Grace::Models
 
 RSpec.describe Shift do

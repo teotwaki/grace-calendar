@@ -1,3 +1,8 @@
+require 'sinatra'
+require 'sinatra/param'
+
+require_rel '../helpers/jwt'
+
 module Grace
   module Api
     class Common < Sinatra::Base

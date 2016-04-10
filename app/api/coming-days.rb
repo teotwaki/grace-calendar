@@ -1,3 +1,5 @@
+require_rel 'common'
+
 module Grace
   module Api
     class ComingDays < Common

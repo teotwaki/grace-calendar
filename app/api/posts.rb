@@ -1,3 +1,6 @@
+require_rel 'common'
+require_rel '../models/post'
+
 module Grace
   module Api
     class Posts < Common

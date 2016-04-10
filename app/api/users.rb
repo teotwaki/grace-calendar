@@ -1,3 +1,6 @@
+require_rel 'common'
+require_rel '../models/user'
+
 module Grace
   module Api
     class Users < Common

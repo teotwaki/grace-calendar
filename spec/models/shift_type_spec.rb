@@ -1,4 +1,6 @@
 require 'models_helper'
+
+require_rel '../../app/models/shift_type'
 include Grace::Models
 
 RSpec.describe ShiftType do

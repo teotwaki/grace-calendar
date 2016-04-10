@@ -1,3 +1,6 @@
+require_rel '../helpers/db'
+require_rel '../models/user'
+
 module Grace
   module Models
     class OauthUser < Sequel::Model

@@ -1,3 +1,8 @@
+require_rel 'common'
+require_rel '../lib/oauth/google'
+require_rel '../helpers/jwt'
+require_rel '../models/oauth_user'
+
 module Grace
   module Api
     class Auth < Common

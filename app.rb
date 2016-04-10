@@ -1,3 +1,8 @@
+require 'sinatra'
+require 'require_all'
+
+require_all 'app/api'
+
 module Grace
   class App < Sinatra::Base
     # Automatically serve static content if no match

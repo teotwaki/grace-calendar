@@ -1,3 +1,5 @@
+require 'jwt'
+
 module Grace
   module Helpers
     class WebToken

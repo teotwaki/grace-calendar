@@ -1,4 +1,6 @@
 require 'models_helper'
+
+require_rel '../../app/models/shift_registration'
 include Grace::Models
 
 RSpec.describe ShiftRegistration do

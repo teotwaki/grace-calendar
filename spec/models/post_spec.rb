@@ -1,4 +1,6 @@
 require 'models_helper'
+
+require_rel '../../app/models/post'
 include Grace::Models
 
 RSpec.describe Post do
