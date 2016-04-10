@@ -7,6 +7,10 @@
     bundle exec rake db:migrate
     bundle exec rake db:seed
 
+## Run tests
+
+    bundle exec rake
+
 # Running
 
     bundle exec shotgun -o 0.0.0.0

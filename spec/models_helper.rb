@@ -1,9 +1,6 @@
-require 'dotenv'
 require 'factory_girl'
 require 'require_all'
 require 'rspec/collection_matchers'
-
-Dotenv.load
 
 require_all 'app/helpers'
 require_all 'app/models'

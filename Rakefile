@@ -2,6 +2,13 @@
 require 'dotenv'
 Dotenv.load
 
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+  task default: :spec
+rescue LoadError
+end
+
 namespace :db do
   desc 'Setup Sequel database'
   task :sequel do |t|
