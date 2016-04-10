@@ -1,4 +1,5 @@
 require 'factory_girl'
+require 'faker'
 require 'require_all'
 require 'rspec/collection_matchers'
 
