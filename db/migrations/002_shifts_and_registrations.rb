@@ -34,8 +34,8 @@ Sequel.migration do
       DateTime :cancelled_at, null: true
       String :reason, null: true, text: true
 
-      foreign_key :volunteer_id, :users
-      foreign_key :shift_id, :shifts
+      foreign_key :volunteer_id, :users, null: false
+      foreign_key :shift_id, :shifts, null: false
       foreign_key :admin_id, :users
     end
   end
