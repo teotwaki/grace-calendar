@@ -2,6 +2,7 @@ require 'factory_girl'
 require 'faker'
 require 'require_all'
 require 'rspec/collection_matchers'
+require 'as-duration'
 
 require_all 'app/helpers'
 require_all 'app/models'
@@ -16,4 +17,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     FactoryGirl.find_definitions
   end
+end
+
+FactoryGirl.define do
+  to_create { |instance| instance.save }
 end

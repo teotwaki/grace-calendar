@@ -24,6 +24,8 @@ module Grace
 
       one_to_many :oauth_users
       one_to_many :posts
+      one_to_many :shift_registrations, key: :volunteer_id
+      one_to_many :shift_approvals, class: :ShiftRegistration, key: :admin_id
 
       class << self
         def from_google profile

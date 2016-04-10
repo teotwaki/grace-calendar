@@ -33,4 +33,12 @@ RSpec.describe User do
   it 'gives access to its oauth users' do
     expect(create(:user).oauth_users).to have(0).items
   end
+
+  it 'gives access to its registrations' do
+    expect(create(:user).shift_registrations).to have(0).items
+  end
+
+  it 'gives access to its approvals' do
+    expect(create(:user).shift_approvals).to have(0).items
+  end
 end

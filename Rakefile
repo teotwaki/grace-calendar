@@ -49,7 +49,8 @@ namespace :db do
   desc 'Seed the database'
   task :seed => ['db:migrate'] do |t|
     require 'require_all'
-    require_all 'db/models'
+    require_all 'app/models'
+    include Grace::Models
 
     admin = User.new
     admin.first_name = 'Sebastian'
@@ -132,5 +133,4 @@ namespace :db do
       p.save
     end
   end
-
 end
