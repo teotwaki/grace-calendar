@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Run tasks
+gem 'rake', '~> 10.4.2', require: false
+
 # Middleware
 gem 'sinatra', '~> 1.4.7'
 gem 'sinatra-param', '~> 1.4.0', require: 'sinatra/param'
@@ -18,8 +21,7 @@ gem 'jwt', '~> 1.5.4'
 
 # Database stuff
 gem 'sequel', '~> 4.32.0', require: false
-gem 'rake', '~> 10.4.2', require: false
-gem 'global_phone', '~> 1.0.1'
+gem 'global_phone', '~> 1.0.1', require: false
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.11', require: false
