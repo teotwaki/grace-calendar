@@ -1,3 +1,9 @@
+# Grace Volunteers
+
+[![Build Status](https://travis-ci.org/teotwaki/grace-calendar.svg?branch=develop)](https://travis-ci.org/teotwaki/grace-calendar)
+
+Want to learn more about this project? See [this page](https://github.com/teotwaki/grace-calendar/blob/develop/doc/general.md).
+
 # Installing
 
     bundle install
@@ -9,6 +15,9 @@
 ## Run tests
 
     bundle exec rake
+
+This will automatically create a new `db/test.db` if necessary. In certain
+cases, if the test database file is corrupted, you might have to delete it.
 
 # Running
 
