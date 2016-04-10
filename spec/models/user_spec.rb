@@ -22,6 +22,10 @@ RSpec.describe User do
     expect(build(:user, email_address: 'foo')).to_not be_valid
   end
 
+  it 'is invalid with an invalid phone number' do
+    expect(build(:user, phone_number: 'foo')).to_not be_valid
+  end
+
   it 'supports serialising to json' do
     expect(User.method_defined? 'to_json').to be true
   end
