@@ -23,6 +23,6 @@ RSpec.describe ShiftRegistration do
   end
 
   it 'provides access to the admin who authorised it' do
-    expect(create(:shift_registration).admin).to_not be_nil
+    expect(create(:approved_shift_registration).admin).to_not be_nil
   end
 end

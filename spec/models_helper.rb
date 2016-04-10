@@ -18,3 +18,7 @@ RSpec.configure do |config|
     FactoryGirl.find_definitions
   end
 end
+
+FactoryGirl.define do
+  to_create { |instance| instance.save }
+end

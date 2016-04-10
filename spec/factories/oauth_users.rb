@@ -1,9 +1,8 @@
 FactoryGirl.define do
-  to_create { |instance| instance.save }
+  factory :oauth_user do
+    user
 
-  factory :oauth_user do |f|
-    f.provider { Faker::Company.name }
-    f.id { Faker::Code.ean }
-    f.user { create(:user) }
+    provider { Faker::Company.name }
+    id { Faker::Code.ean }
   end
 end
