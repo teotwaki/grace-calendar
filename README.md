@@ -1,11 +1,23 @@
+# Grace Volunteers
+
+[![Build Status](https://travis-ci.org/teotwaki/grace-calendar.svg?branch=develop)](https://travis-ci.org/teotwaki/grace-calendar)
+
+Want to learn more about this project? See [this page](https://github.com/teotwaki/grace-calendar/blob/develop/doc/general.md).
+
 # Installing
 
     bundle install
 
-## Setup
+## Setup demo environment
 
-    bundle exec rake db:migrate
     bundle exec rake db:seed
+
+## Run tests
+
+    bundle exec rake
+
+This will automatically create a new `db/test.db` if necessary. In certain
+cases, if the test database file is corrupted, you might have to delete it.
 
 # Running
 
@@ -27,3 +39,5 @@ store on the client side. Example:
     GOOGLE_CLIENT_SECRET='foobarzob'
     DATABASE_URL='sqlite://foo.db'
     JWT_HMAC_SECRET='random string of characters'
+
+Please note the `.env` file is ignored during unit tests.

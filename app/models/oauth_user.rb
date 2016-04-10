@@ -1,6 +1,14 @@
 module Grace
   module Models
     class OauthUser < Sequel::Model
+      plugin :validation_helpers
+
+      def validate
+        super
+
+        validates_presence [:provider, :id, :user]
+      end
+
       many_to_one :user
 
       class << self
