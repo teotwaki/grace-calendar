@@ -12,3 +12,4 @@ Not in order :).
 
 - Ask for phone number after login, if no phone number exists in database
 - Add email/password authentication
+- Rename `Post.user` to `Post.author`
