@@ -1,17 +1,35 @@
-# Load the app environment
-require 'dotenv'
-Dotenv.load
-
 begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)
   task default: :spec
+  Rake::Task[:spec].enhance ['internal:test_environment', 'db:migrate']
 rescue LoadError
+end
+
+namespace :internal do
+  desc 'Force test environment'
+  task :test_environment do |t|
+    ENV['GRACE_ENVIRONMENT'] = 'test'
+  end
+
+  desc 'Set or load the application environment'
+  task :environment do |t|
+    ENV['GRACE_ENVIRONMENT'] ||= 'development'
+
+    if ENV['GRACE_ENVIRONMENT'] == 'test'
+      ENV['DATABASE_URL'] = 'sqlite://db/test.db'
+      ENV['JWT_HMAC_SECRET'] = 'foobar'
+      ENV['GOOGLE_CLIENT_SECRET'] = 'foobar'
+    else
+      require 'dotenv'
+      Dotenv.load
+    end
+  end
 end
 
 namespace :db do
   desc 'Setup Sequel database'
-  task :sequel do |t|
+  task :sequel => ['internal:environment'] do |t|
     require 'sequel'
     DB = Sequel.connect(ENV.fetch('DATABASE_URL'))
   end
@@ -29,7 +47,7 @@ namespace :db do
   end
 
   desc 'Seed the database'
-  task :seed => [:sequel] do |t|
+  task :seed => ['db:migrate'] do |t|
     require 'require_all'
     require_all 'db/models'
 

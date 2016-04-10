@@ -2,9 +2,8 @@
 
     bundle install
 
-## Setup
+## Setup demo environment
 
-    bundle exec rake db:migrate
     bundle exec rake db:seed
 
 ## Run tests
@@ -31,3 +30,5 @@ store on the client side. Example:
     GOOGLE_CLIENT_SECRET='foobarzob'
     DATABASE_URL='sqlite://foo.db'
     JWT_HMAC_SECRET='random string of characters'
+
+Please note the `.env` file is ignored during unit tests.
