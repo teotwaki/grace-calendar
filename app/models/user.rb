@@ -1,3 +1,7 @@
+require_rel '../helpers/db'
+require_rel '../helpers/global_phone'
+require_rel '../models/user'
+
 module Grace
   module Models
     class User < Sequel::Model

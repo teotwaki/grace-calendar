@@ -1,4 +1,6 @@
 require 'models_helper'
+
+require_rel '../../app/models/oauth_user'
 include Grace::Models
 
 RSpec.describe OauthUser do

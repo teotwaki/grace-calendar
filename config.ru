@@ -1,8 +1,6 @@
-Bundler.require
-Dotenv.load
+require 'dotenv'
 
-# Load the application dependencies
-require_all 'app'
+Dotenv.load
 
 # Load the main application
 require './app'

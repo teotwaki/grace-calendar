@@ -1,3 +1,5 @@
+require 'httparty'
+
 module Grace
   module OAuth
     class GoogleAPIClient

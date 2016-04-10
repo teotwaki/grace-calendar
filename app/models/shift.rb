@@ -1,3 +1,5 @@
+require_rel '../helpers/db'
+
 module Grace
   module Models
     class Shift < Sequel::Model

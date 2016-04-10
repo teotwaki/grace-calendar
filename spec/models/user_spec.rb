@@ -1,4 +1,6 @@
 require 'models_helper'
+
+require_rel '../../app/models/user'
 include Grace::Models
 
 RSpec.describe User do
