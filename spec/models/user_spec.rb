@@ -22,6 +22,23 @@ RSpec.describe User do
     expect(build(:user, email_address: 'foo')).to_not be_valid
   end
 
+  it 'is invalid with an invalid phone number' do
+    expect(build(:user, phone_number: 'foo')).to_not be_valid
+  end
+
+  it 'recognises danish phone numbers' do
+    # Apologies if this is your phone number
+    ['91682219', '91 68 22 19', '91.68.22.19', '91-68-22-19'].each do |number|
+      expect(build(:user, phone_number: number)).to be_valid
+    end
+  end
+
+  it 'recognises international phone numbers' do
+    ['+33665194832', '+33 (0) 6.65.19.48.32'].each do |number|
+      expect(build(:user, phone_number: number)).to be_valid
+    end
+  end
+
   it 'supports serialising to json' do
     expect(User.method_defined? 'to_json').to be true
   end
