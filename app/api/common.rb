@@ -20,7 +20,11 @@ module Grace
       private
       def parse_request
         request.body.rewind
-        JSON.parse request.body.read
+        begin
+          JSON.parse request.body.read
+        rescue JSON::ParserError
+          deny! 400, 'Invalid JSON payload'
+        end
       end
 
       def authorize!

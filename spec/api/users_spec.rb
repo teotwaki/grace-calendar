@@ -82,7 +82,7 @@ describe Grace::Api::Users do
         mock_admin!
       end
 
-      it 'requires the id parameter' do
+      it 'requires a valid id parameter' do
         get '/api/users/foo'
         expect(last_response).to_not be_ok
       end
@@ -93,6 +93,11 @@ describe Grace::Api::Users do
 
         validate_fields! response.keys
       end
+
+      it 'only returns users that actually exist' do
+        get '/api/users/659'
+        expect(last_response.status).to eq 404
+      end
     end
   end
 
@@ -100,6 +105,52 @@ describe Grace::Api::Users do
     it 'requires an authenticated user' do
       put '/api/users/3'
       expect(last_response.status).to eq 403
+    end
+
+    it 'requires the id parameter' do
+      put '/api/users/'
+      expect(last_response.status).to eq 404
+    end
+
+    describe 'with authentication and users' do
+      before :each do
+        (0..5).each do
+          create(:user)
+        end
+        mock_admin!
+      end
+
+      it 'requires a valid id parameter' do
+        put '/api/users/foo'
+        expect(last_response).to_not be_ok
+      end
+
+      it 'fails if the user id is wrong' do
+        put '/api/users/659'
+        expect(last_response.status).to eq 404
+      end
+
+      it 'fails with empty put body' do
+        put '/api/users/2'
+        expect(last_response.status).to eq 400
+      end
+
+      it 'fails with an invalid put body' do
+        put '/api/users/2', 'foobarzob'
+        expect(last_response.status).to eq 400
+      end
+
+      it 'fails when the body is missing fields' do
+        put '/api/users/2', {first_name:'',last_name:'',phone_number:''}.to_json
+        expect(last_response.status).to eq 400
+        expect(last_response.body).to include('`is_admin`, `is_approved`')
+      end
+
+      it 'fails when model validation fails' do
+        put '/api/users/2', {first_name:'',last_name:'',phone_number:'',is_admin:'',is_approved:''}.to_json
+        expect(last_response.status).to eq 400
+        expect(last_response.body).to include(':first_name=>[\"is not present\"]')
+      end
     end
   end
 end
