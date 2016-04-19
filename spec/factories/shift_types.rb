@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :shift_type do
+  factory :shift_type, class: Grace::Models::ShiftType do
     begins_at { Faker::Time.between(1.days.ago, Date.today, :morning) }
     ends_at { Faker::Time.between(1.days.ago, Date.today, :afternoon) }
     description { Faker::Lorem.sentence }

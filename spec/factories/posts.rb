@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :post do
+  factory :post, class: Grace::Models::Post do
     user
 
     title { Faker::Lorem.sentence }

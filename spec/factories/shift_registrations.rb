@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :shift_registration do
+  factory :shift_registration, class: Grace::Models::ShiftRegistration do
     volunteer
     shift
 
