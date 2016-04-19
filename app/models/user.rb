@@ -39,7 +39,7 @@ module Grace
             user = User.new
             user.first_name = profile['given_name']
             user.last_name = profile['family_name']
-            user.email_address = profile['email_address']
+            user.email_address = profile['email']
             user.save
           end
 
