@@ -7,8 +7,8 @@ module Grace
       helpers do
         def validate_fields!(data)
           fields = data.keys.sort
-          valid_fields = ['first_name', 'last_name', 'phone_number',
-                          'is_admin', 'is_approved'].sort
+          valid_fields = ['first_name', 'last_name', 'is_admin',
+                          'is_approved'].sort
           if fields != valid_fields
             delta = valid_fields - fields
             unless delta.empty?
