@@ -3,8 +3,8 @@ Sequel.migration do
     create_table(:shift_types) do
       primary_key :id
 
-      Time :begins_at, null: false
-      Time :ends_at, null: false
+      Time :begins_at, null: false, only_time: true
+      Time :ends_at, null: false, only_time: true
       String :description, null: false
       Integer :staff_required, null: false
       Integer :volunteers_required, null: false
@@ -15,8 +15,8 @@ Sequel.migration do
 
       Date :begins_on, null: false, index: true
       Date :ends_on, null: true
-      Time :starts_at, null: true
-      Time :ends_at, null: true
+      Time :starts_at, null: true, only_time: true
+      Time :ends_at, null: true, only_time: true
       String :description, null: true, text: true
       Integer :staff_required, null: true
       Integer :volunteers_required, null: true
