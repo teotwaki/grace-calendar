@@ -26,7 +26,10 @@ module Grace
         filters = {}
         filters[:is_approved] = false if params[:filter_unapproved]
 
-        dataset = Models::User.where(filters).reverse_order(:id).paginate(params[:page], params[:per_page])
+        dataset = Models::User
+          .where(filters)
+          .reverse_order(:id)
+          .paginate(params[:page], params[:per_page])
 
         {
           users: dataset.all,
